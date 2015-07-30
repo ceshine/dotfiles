@@ -1,17 +1,23 @@
-(require 'ido)
-(require 'ffap)
-(require 'linum)
-(require 'whitespace)
+;; Legacy commands that I don't what are they for
+;; (require 'ido)
+;; (require 'ffap)
+;; (require 'linum)
+;; (require 'whitespace)
 ;; (require 'recentf)
-(ido-mode t)
+;; (ido-mode t)
 
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (package-initialize)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-  )
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/"))
 
-(setq magit-auto-revert-mode nil)
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(require 'use-package)
 
 ;; do not show welcome screen
 (setq inhibit-startup-message t)
@@ -22,20 +28,37 @@
 	standard-indent 4
 	indent-tabs-mode nil)
 
+;; magit
+(use-package magit
+  :ensure t
+  :init
+  (setq magit-last-seen-setup-instructions "1.4.0")
+  :config
+  (setq magit-auto-revert-mode nil))
+
+
 ;; enable autopep8 on save
-(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+(use-package py-autopep8
+  :ensure t
+  :config
+  (add-hook 'python-mode-hook 'py-autopep8-enable-on-save))
 
 ;; enable autocomplete for python
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)                 ; optional
+(use-package jedi
+  :ensure t
+  :config
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t))                 ; optional
 
 ;; go-mode indent setting
-(add-hook 'go-mode-hook
-  (lambda ()
-    (setq-default)
-    (setq tab-width 4)
-    (setq standard-indent 4)
-    (setq indent-tabs-mode nil)))
+(use-package go-mode
+  :config
+  (add-hook 'go-mode-hook
+    (lambda ()
+      (setq-default)
+      (setq tab-width 4)
+      (setq standard-indent 4)
+      (setq indent-tabs-mode nil))))
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
@@ -62,4 +85,6 @@
 (global-set-key "\C-c;" 'comment-or-uncomment-region)
 
 ;; Flycheck
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(use-package flycheck
+    :config
+    (add-hook 'after-init-hook #'global-flycheck-mode))
