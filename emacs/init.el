@@ -1,8 +1,17 @@
+(require 'ido)
+(require 'ffap)
+(require 'linum)
+(require 'whitespace)
+;; (require 'recentf)
+(ido-mode t)
+
 (when (>= emacs-major-version 24)
   (require 'package)
   (package-initialize)
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
   )
+
+(setq magit-auto-revert-mode nil)
 
 ;; do not show welcome screen
 (setq inhibit-startup-message t)
@@ -12,6 +21,13 @@
 	tab-width 4
 	standard-indent 4
 	indent-tabs-mode nil)
+
+;; enable autopep8 on save
+(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+
+;; enable autocomplete for python
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)                 ; optional
 
 ;; go-mode indent setting
 (add-hook 'go-mode-hook
@@ -44,3 +60,6 @@
 ;; -- Macros --
 ;; ------------
 (global-set-key "\C-c;" 'comment-or-uncomment-region)
+
+;; Flycheck
+(add-hook 'after-init-hook #'global-flycheck-mode)
