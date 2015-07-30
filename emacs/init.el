@@ -1,10 +1,10 @@
 ;; Legacy commands that I don't what are they for
-;; (require 'ido)
+(require 'ido)
 ;; (require 'ffap)
 ;; (require 'linum)
 ;; (require 'whitespace)
 ;; (require 'recentf)
-;; (ido-mode t)
+(ido-mode t)
 
 (require 'package)
 (setq package-enable-at-startup nil)
