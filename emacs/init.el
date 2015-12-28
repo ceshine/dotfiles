@@ -39,6 +39,12 @@
   :config
   (setq magit-auto-revert-mode nil))
 
+;; enable virtualenvwrapper.el
+(use-package virtualenvwrapper
+  :ensure t
+  :config
+  (setq venv-location "/home/ceshine/.virtualenvs"))
+
 
 ;; enable autopep8 on save
 (use-package py-autopep8
