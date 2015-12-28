@@ -22,6 +22,9 @@
 ;; do not show welcome screen
 (setq inhibit-startup-message t)
 
+;; auto-reload buffers
+(global-auto-revert-mode t)
+
 ;; Tab-related settings
 (setq-default 
 	tab-width 4
