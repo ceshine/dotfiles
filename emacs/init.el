@@ -23,7 +23,7 @@
 (setq inhibit-startup-message t)
 
 ;; Tab-related settings
-(setq-default 
+(setq-default
 	tab-width 4
 	standard-indent 4
 	indent-tabs-mode nil)
@@ -83,6 +83,12 @@
 ;; -- Macros --
 ;; ------------
 (global-set-key "\C-c;" 'comment-or-uncomment-region)
+
+;; Auto refresh buffer upon changes
+(global-auto-revert-mode t)
+
+;; Delete trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Flycheck
 (use-package flycheck
