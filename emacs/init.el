@@ -22,6 +22,9 @@
 ;; do not show welcome screen
 (setq inhibit-startup-message t)
 
+;; auto-reload buffers
+(global-auto-revert-mode t)
+
 ;; Tab-related settings
 (setq-default
 	tab-width 4
@@ -35,6 +38,12 @@
   (setq magit-last-seen-setup-instructions "1.4.0")
   :config
   (setq magit-auto-revert-mode nil))
+
+;; enable virtualenvwrapper.el
+(use-package virtualenvwrapper
+  :ensure t
+  :config
+  (setq venv-location "/home/ceshine/.virtualenvs"))
 
 
 ;; enable autopep8 on save
