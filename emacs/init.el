@@ -39,18 +39,38 @@
   :config
   (setq magit-auto-revert-mode nil))
 
-;; enable virtualenvwrapper.el
-(use-package virtualenvwrapper
+;; anaconda-mode
+;; (use-package anaconda-mode
+;;   :ensure t
+;;   :config
+;;   (add-hook 'python-mode-hook 'anaconda-mode))
+
+;; enable conda
+(use-package conda
   :ensure t
   :config
-  (setq venv-location "/home/ceshine/.virtualenvs"))
-
+  (custom-set-variables
+     '(conda-anaconda-home "/home/ceshine/miniconda3"))
+  (setq-default mode-line-format (cons '(:exec conda-env-current-name) mode-line-format))
+  (conda-env-autoactivate-mode t))
 
 ;; enable autopep8 on save
 (use-package py-autopep8
   :ensure t
   :config
   (add-hook 'python-mode-hook 'py-autopep8-enable-on-save))
+
+(setq
+   python-shell-interpreter "ipython"
+   python-shell-interpreter-args "--simple-prompt -i"
+   python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+   python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+   python-shell-completion-setup-code
+     "from IPython.core.completerlib import module_completion"
+   python-shell-completion-module-string-code
+     "';'.join(module_completion('''%s'''))\n"
+   python-shell-completion-string-code
+     "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
 ;; enable autocomplete for python
 (use-package jedi
@@ -70,10 +90,10 @@
       (setq indent-tabs-mode nil))))
 
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(default ((t (:inherit autoface-default :stipple nil :background "#d6d6d6" :foreground "#212121" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "unknown" :family "Ubuntu Mono"))))
  '(column-marker-1 ((t (:background "red"))))
  '(diff-added ((t (:foreground "cyan"))))
@@ -107,3 +127,12 @@
 
 (provide 'init)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(conda-anaconda-home "/home/ceshine/miniconda3")
+ '(package-selected-packages
+   (quote
+    (flycheck jedi py-autopep8 virtualenvwrapper magit use-package))))
