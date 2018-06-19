@@ -10,6 +10,8 @@
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/"))
+;; (add-to-list 'package-archives
+;;              '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
 (package-initialize)
 
@@ -30,6 +32,14 @@
 	tab-width 4
 	standard-indent 4
 	indent-tabs-mode nil)
+
+;; elpy
+(use-package elpy
+  :ensure t
+  :config
+  (setq elpy-rpc-backend "jedi")
+  )
+(elpy-enable)
 
 ;; magit
 (use-package magit
@@ -80,14 +90,14 @@
   (setq jedi:complete-on-dot t))                 ; optional
 
 ;; go-mode indent setting
-(use-package go-mode
-  :config
-  (add-hook 'go-mode-hook
-    (lambda ()
-      (setq-default)
-      (setq tab-width 4)
-      (setq standard-indent 4)
-      (setq indent-tabs-mode nil))))
+;; (use-package go-mode
+;;   :config
+;;   (add-hook 'go-mode-hook
+;;     (lambda ()
+;;       (setq-default)
+;;       (setq tab-width 4)
+;;       (setq standard-indent 4)
+;;       (setq indent-tabs-mode nil))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -135,4 +145,4 @@
  '(conda-anaconda-home "/home/ceshine/miniconda3")
  '(package-selected-packages
    (quote
-    (flycheck jedi py-autopep8 virtualenvwrapper magit use-package))))
+    (elpy flycheck jedi py-autopep8 virtualenvwrapper magit use-package))))
