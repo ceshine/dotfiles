@@ -7,3 +7,7 @@ set -g theme_date_format "+%Y-%m-%d %H:%M"
 set -g theme_color_scheme solarized-dark
 
 set -g NVM_DIR "/mnt/SSD_Data/nvm"
+
+conda activate base
+
+alias ping=prettyping
