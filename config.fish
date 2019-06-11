@@ -11,3 +11,8 @@ set -g NVM_DIR "/mnt/SSD_Data/nvm"
 conda activate base
 
 alias ping=prettyping
+alias droplet "doctl compute droplet"
+alias du "ncdu --color dark -rr -x --exclude .git --exclude node_modules"
+if status --is-interactive
+    nvm use node
+end
